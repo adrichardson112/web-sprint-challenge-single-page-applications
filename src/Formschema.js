@@ -10,6 +10,6 @@ const formSchema = Yup.object().shape({
     name: Yup
         .string()
         .required("You must enter your name"),
-})
+});
 
-export default formSchema;
+export default formSchema

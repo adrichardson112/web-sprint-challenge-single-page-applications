@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Home() {
+const Home = (props) => {
     return (
-        <Link to ="/pizza">Build Your Pizza Here</Link>
-    )
-}
+        <div>
+            <h2>Fresh Pizza Delivered!</h2>
+            <button>
+                <Link to="/pizza">Place Your Order Now!</Link>
+            </button>
+        </div>
+    );
+};
+
+export default Home;
