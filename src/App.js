@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Home from "./Home";
-import Form from "./Form";
+import PizzaForm from "./PizzaForm";
 
 const App = () => {
   const [pizzaOrders] = useState([]); //set state for orders
@@ -17,8 +17,10 @@ const App = () => {
       </Route>
 
       <Route path="/pizza">
-        <Form />
+        <PizzaForm />
       </Route>
     </div>
   );
 };
+
+export default App;
