@@ -75,4 +75,41 @@ const onSubmit = event => {
   setNewOrders([...neworders, newOrder])
 }
 
+useEffect(() => {
+  Formschema.isValid(formValues).then(valid => {
+    setDisabled(!valid)
+  })
+}, [formValues])
 
+return (
+  <div>
+    <Switch>
+      <Route path="/pizza">
+        <Form 
+          values={formValues}
+          onSubmit={onSubmit}
+          onInputChange={onInputChange}
+          onCheckboxChange={onCheckboxChange}
+          disabled={disabled}
+          errors={errors}
+        />
+        {
+          neworders.map((order, i) => {
+            return (
+              <div key={i}>
+                <h3>{order.name}</h3>
+                <p>{order.size}</p>
+                <p>{order.instructions}</p>
+                <p>{order.toppings.join(", ")}</p>
+              </div>
+            )
+          })
+        }
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
+  </div>
+);
+      }
