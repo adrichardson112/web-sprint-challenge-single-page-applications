@@ -4,7 +4,6 @@ import axios from "axios";
 import { Button } from 'reactstrap';
 
 const PizzaForm = () => {
-    const [post, setPost] = useState({}); //set initial post to empty
 
     const newPizza = { //variable for blank pizza
         name: "",
@@ -17,6 +16,7 @@ const PizzaForm = () => {
         special: ""
     }
 
+    const [otherPizza, setOtherPizza] = useState([]);    
     const [buttonDisabled, setButtonDisabled] = useState(true) //state for our button
     const [errors, setErrors] = useState({ //state for our errors
         name: "",
@@ -31,7 +31,7 @@ const PizzaForm = () => {
 
     //Schema Object
     const pizzaSchema = yup.object().shape({
-        name:yup.string().test('Ash', 'Must include name longer than 2 characters', val => val.length >2),
+        name:yup.string().test('Must include name longer than 2 characters', val => val.length > 2),
         size:yup.boolean().oneOf(["Personal, Small, Medium, Large"]),
         pepperoni: yup.boolean().oneOf([true,false]),
         bananapeppers: yup.boolean().oneOf([true,false]),
@@ -55,7 +55,7 @@ const PizzaForm = () => {
         })
     }
 
-    const data = [];
+
     const [formState, setForm] = useState(newPizza);
 
     //on change function and validation callback
@@ -71,17 +71,14 @@ const PizzaForm = () => {
     //function to submit to the database
     const formSubmit = e => {
         e.preventDefault();
-        axios.post("https://reqres.in/api/users",formState)
-
-        .then(response => {
-            setPost(response.data);
-            data.push(post);
-            setForm(newPizza);
+        console.log("form submitted");
+        axios
+        .post("https://reqres.in/api/users", formState)
+        .then(resp => {
+            console.log(resp.data);
         })
-        .catch(err => {
-            console.log(err);
-        });
-    }
+        .catch(err=>console.log(err));
+    };
 
     //use effect function
     useEffect(() => {
@@ -159,8 +156,8 @@ return (<div className="orderForm">
         </label>
 
         <div>
-        <Button disabled = {buttonDisabled} type = "submit" color = "primary" data-cy="submit">Submit</Button>
-        <pre> Confirmation {JSON.stringify(post, null, 2)}</pre>
+        <Button disabled = {buttonDisabled} onClick={formSubmit} color = "primary" data-cy="submit">Submit</Button>
+        <pre> Confirmation {JSON.stringify(otherPizza, null, 2)}</pre>
         </div>
     </div>
   )
