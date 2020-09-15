@@ -18,7 +18,7 @@ const PizzaForm = () => {
 
     const [otherPizza, setOtherPizza] = useState([]);    
     const [buttonDisabled, setButtonDisabled] = useState(true) //state for our button
-    const [errors, setErrors] = useState({ //state for our errors
+    const [errors, setErrors] = useState({ //state for our  
         name: "",
         size: "",
         pepperoni: "",
@@ -155,7 +155,16 @@ return (<div className="orderForm">
             {errors.special.length > 2 ? <p>{errors.special}</p> : null} 
         </label>
 
-        <div>
+        <div className="submit">
+            <label>Enter Name:&nbsp;
+                <input
+                    value={formState.name}
+                    type="text"
+                    name="name"
+                    onChange={inputChange}
+                />
+            </label>
+
         <Button disabled = {buttonDisabled} onClick={formSubmit} color = "primary" data-cy="submit">Submit</Button>
         <pre> Confirmation {JSON.stringify(otherPizza, null, 2)}</pre>
         </div>
