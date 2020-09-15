@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 const PizzaForm = () => {
 
-    const newPizza = { //variable for blank pizza
+    const [newPizza, setNewPizza] = useState({ //variable for blank pizza
         name: "",
         size: "",
         pepperoni: false,
@@ -14,11 +14,11 @@ const PizzaForm = () => {
         onions: false,
         spinach: false,
         special: ""
-    }
+    });
 
-    const [otherPizza, setOtherPizza] = useState([]);    
+    const [otherPizza, setOtherPizza] = useState([newPizza]);    
     const [buttonDisabled, setButtonDisabled] = useState(true) //state for our button
-    const [errors, setErrors] = useState({ //state for our  
+    const [errors, setErrors] = useState({ //state for our errors
         name: "",
         size: "",
         pepperoni: "",
@@ -76,6 +76,7 @@ const PizzaForm = () => {
         .post("https://reqres.in/api/users", formState)
         .then(resp => {
             console.log(resp.data);
+            setNewPizza(resp.data);
         })
         .catch(err=>console.log(err));
     };
@@ -166,7 +167,7 @@ return (<div className="orderForm">
             </label>
 
         <Button disabled = {buttonDisabled} onClick={formSubmit} color = "primary" data-cy="submit">Submit</Button>
-        <pre> Confirmation {JSON.stringify(otherPizza, null, 2)}</pre>
+        <pre> Confirmation {JSON.stringify(newPizza, null, 2)}</pre>
         </div>
     </div>
   )
